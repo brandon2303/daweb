@@ -12,8 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('/welcome');
 });
+
+
+
 
 Route::get('/nuevo', function () {
     return view('auth.register');
@@ -22,3 +25,10 @@ Route::get('/nuevo', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//routas de la practica 1
+Route::get('upload', function () {
+    return view('uploadfiles');
+});
+
+Route::post('formSubmit','FileController@formSubmit');

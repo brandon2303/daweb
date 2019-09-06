@@ -23,7 +23,7 @@
     <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light" style="background: #008aa2;">
 
-    <a class="navbar-brand" href="#"><img class="mr-3" src="http://placekitten.com/g/140/140" alt="" width="48" height="48"></a>
+    <a class="navbar-brand" href="#"><img class="mr-3" src="logo_uth.png" alt="" width="48" height="48"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -37,7 +37,7 @@
     </div>
 
     <div class="my-2 my-lg-0">
-      <a class="my-2 my-sm-0"><img class="mr-3" src="http://placekitten.com/g/140/140" alt="" width="48" height="48"></a>
+      <a class="my-2 my-sm-0"><img class="mr-3" src="vuet.jpg" alt="" width="48" height="48"></a>
     </div>
 
   </nav>
@@ -51,7 +51,7 @@
 
     
     <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark" style="background: #008aa2;">
-      <a class="navbar-brand" href="#">   <img class="mr-3" src="http://placekitten.com/g/140/140" alt="" width="48" height="48"></a>
+      <a class="navbar-brand" href="#">   <img class="mr-3" src="brandon.jpeg" alt="" width="48" height="48"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
