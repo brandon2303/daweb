@@ -70,7 +70,7 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ url('upload') }}">Practica 1</a>
+                        <a href="{{ url('uploadfiles') }}">Practica 1</a>
                         <a href="{{ route('login') }}">Practica 2</a>
                       
                        
