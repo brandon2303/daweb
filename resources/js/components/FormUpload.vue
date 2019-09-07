@@ -53,11 +53,11 @@
                         <div v-if="success != ''" class="alert alert-success" role="alert">
                           {{success}}
                         </div>
-                        <form @submit="formSubmit" enctype="multipart/form-data">
+                        <form  enctype="multipart/form-data">
                        
                         <input type="file" class="form-control" v-on:change="onFileChange">
                         <br>
-                        <button class="btn btn-success">Aceptar</button>
+                      
 
                         </form>
                     
@@ -117,8 +117,13 @@
                 console.log(e.target.files[0]);
                 this.file = e.target.files[0];
             },
-            formSubmit(e) {
-                e.preventDefault();
+           
+            agregar(){
+                if(this.file == '')
+                {
+                    alert("Por favor seleccione algun archivo");
+                    return;
+                }
                 let currentObj = this;
    
                 const config = {
@@ -135,9 +140,6 @@
                 .catch(function (error) {
                     currentObj.output = error;
                 });
-            },
-            agregar(){
-
             },
             editar(){
 

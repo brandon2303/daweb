@@ -1848,8 +1848,12 @@ __webpack_require__.r(__webpack_exports__);
       console.log(e.target.files[0]);
       this.file = e.target.files[0];
     },
-    formSubmit: function formSubmit(e) {
-      e.preventDefault();
+    agregar: function agregar() {
+      if (this.file == '') {
+        alert("Por favor seleccione algun archivo");
+        return;
+      }
+
       var currentObj = this;
       var config = {
         headers: {
@@ -1864,7 +1868,6 @@ __webpack_require__.r(__webpack_exports__);
         currentObj.output = error;
       });
     },
-    agregar: function agregar() {},
     editar: function editar() {},
     eliminar: function eliminar() {},
     cerrarModal: function cerrarModal() {
@@ -65991,26 +65994,15 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _c(
-                "form",
-                {
-                  attrs: { enctype: "multipart/form-data" },
-                  on: { submit: _vm.formSubmit }
-                },
-                [
-                  _c("input", {
-                    staticClass: "form-control",
-                    attrs: { type: "file" },
-                    on: { change: _vm.onFileChange }
-                  }),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("button", { staticClass: "btn btn-success" }, [
-                    _vm._v("Aceptar")
-                  ])
-                ]
-              )
+              _c("form", { attrs: { enctype: "multipart/form-data" } }, [
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: { type: "file" },
+                  on: { change: _vm.onFileChange }
+                }),
+                _vm._v(" "),
+                _c("br")
+              ])
             ]),
             _vm._v(" "),
             _c(
