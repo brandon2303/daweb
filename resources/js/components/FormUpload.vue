@@ -1,27 +1,101 @@
 <template>
+<div>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Laravel Vue JS File Upload Example - ItSolutionStuff.com</div>
+                    <div class="card-header">ADMINISTRACION DE ARCHIVOS <button style="float:right" class="btn btn-success" @click="abrirModal('agregar')">Nuevo</button></div>
     
                     <div class="card-body">
+                       <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="5%">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Extencion</th>
+                                    <th scope="col" width="17%">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><button class="btn btn-warning" @click="editar()">Editar</button> <button class="btn btn-danger" @click="eliminar()">Eliminar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+        <!--inicio del modal-->
+	   <b-modal v-model="show">
+            <template  slot="modal-header">
+              <!-- Emulate built in modal header close button action -->
+              
+               <h5>{{tituloModal}}</h5>
+               <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
+                           <span aria-hidden="true">×</span>
+                </button>
+                
+            </template>
+            
+          <b-container fluid>
+          
+        
+                
+    
+                    
                         <div v-if="success != ''" class="alert alert-success" role="alert">
                           {{success}}
                         </div>
                         <form @submit="formSubmit" enctype="multipart/form-data">
-                        <strong>Name:</strong>
-                        <input type="text" class="form-control" v-model="name">
-                        <strong>File:</strong>
+                       
                         <input type="file" class="form-control" v-on:change="onFileChange">
                         <br>
-                        <button class="btn btn-success">Submit</button>
+                        <button class="btn btn-success">Aceptar</button>
+
                         </form>
-                    </div>
-                </div>
+                    
+          
+          
+          </b-container>
+            <div slot="modal-footer" class="w-100">
+              <b-button v-if="modoAgregar"
+                variant="primary"
+                class="float-right ml-2"
+                @click="agregar"
+              >Agregar
+              <i class="fas fa-plus-circle"></i>
+              </b-button>
+              <b-button v-else
+                variant="primary"
+                class="float-right ml-2"
+                @click="editar"
+              >Editar
+              <i class="fas fa-pen"></i>
+              </b-button>
+              <b-button
+                variant="danger"
+                class="float-right"
+                @click="cerrarModal()"
+              >
+              Cerrar
+              <i class="fas fa-times-circle"></i>
+              </b-button>
             </div>
-        </div>
+          </b-modal>
     </div>
+ 
+     
+</div>
+    
+
+     <!--   -->
 </template>
    
 <script>
@@ -31,9 +105,11 @@
         },
         data() {
             return {
-              name: '',
               file: '',
-              success: ''
+              success: '',
+              show : false,
+              modoAgregar : true,
+              tituloModal : ''
             };
         },
         methods: {
@@ -59,6 +135,29 @@
                 .catch(function (error) {
                     currentObj.output = error;
                 });
+            },
+            agregar(){
+
+            },
+            editar(){
+
+            },
+            eliminar(){
+                
+            },
+            cerrarModal(){
+                this.show = false;
+                this.file = '';
+            },
+            abrirModal(modo, file = []){
+                this.show = true;
+                if(modo == 'agregar')
+                    this.tituloModal = 'AGREGAR';
+                else
+                {
+                    this.modoAgregar = false;
+                    this.tituloModal= 'EDITAR';
+                }
             }
         }
     }
