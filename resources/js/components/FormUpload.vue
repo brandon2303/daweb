@@ -60,13 +60,12 @@
             
             <b-container fluid>
             <div v-if="modoAgregar">
-                            <form  enctype="multipart/form-data">
-                        
-                            <input type="file" class="form-control" v-on:change="onFileChange">
-                            <br>
-                        
-
-                            </form>
+                <form  enctype="multipart/form-data">
+            
+                <input type="file" class="form-control" v-on:change="onFileChange">
+                <br>
+            
+                </form>
             </div>
             <div v-else>
                 <label>No: {{id}}</label>

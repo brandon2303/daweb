@@ -31,7 +31,12 @@ class FileController extends Controller
         $obj->save();
      
     }
-
+    public function editar(Request $request)
+    {
+        $obj = File::find($request->id);
+        $obj->nombre = $request->nombre;
+        $obj->save();
+    }
     public function getType($extencion)
     {
         if($extencion == "avi" || $extencion == "wmv" || $extencion == "mp4")
@@ -54,9 +59,7 @@ class FileController extends Controller
 
     public function eliminar(Request $request)
     {
-
-        $id = $request->id;
-       
+        $id = $request->id;  
         File::destroy($id);
     }
 }
