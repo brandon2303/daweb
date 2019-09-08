@@ -45,7 +45,7 @@
         <form-upload-component>
         </form-upload-component>
     </div>
-    <nav class="navbar fixed-bottom navbar-expand "  style="background: #008aa2;">
+    <nav class="navbar navbar-expand "  style="background: #008aa2;">
         <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
             <img style="border-radius: 50%;"width="100" height="80" src="img/perfil_fede.png">  <label class="text-center" >By Federico Castillo Valenzuela <a href="http://www.deapw.xyz" style="color:white">Unidad 1 DEAPW</a></label>
         </div> 
