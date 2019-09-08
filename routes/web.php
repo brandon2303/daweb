@@ -29,3 +29,6 @@ Route::get('/nuevo', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/listar/archivos', 'FileController@listar');
+Route::post('/eliminar/archivos', 'FileController@eliminar');

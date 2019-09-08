@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\MockObject\Stub\ReturnReference;
 use App\File;
+use Carbon\Carbon;
 
 class FileController extends Controller
 {
@@ -15,8 +16,20 @@ class FileController extends Controller
     
         $fileName = time().'.'.$request->file->getClientOriginalExtension();
         $request->file->move(public_path('upload'), $fileName);
-              
-        return response()->json(['success'=>'You have successfully upload file.']);
+        
+        $fecha = Carbon::now('America/Phoenix');
+    
+        $fecha2 = $fecha->format('Y-m-d',$fecha);
+        $tiempo = $fecha->format('H:i:s',$fecha);
+
+        $obj = new File();
+        $obj->nombre = $fileName;
+        $obj->tipo = $type;
+        $obj->extencion = $extencion;
+        $obj->fecha = $fecha2;
+        $obj->tiempo = $tiempo;
+        $obj->save();
+     
     }
 
     public function getType($extencion)
@@ -32,5 +45,18 @@ class FileController extends Controller
         else
         if($extencion == "mp3" || $extencion == "wav")
             return "Audio"; 
+    }
+
+    public static function listar()
+    {   
+        return $r = File::all();
+    }
+
+    public function eliminar(Request $request)
+    {
+
+        $id = $request->id;
+       
+        File::destroy($id);
     }
 }

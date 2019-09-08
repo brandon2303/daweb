@@ -14,16 +14,28 @@
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Tipo</th>
                                     <th scope="col">Extencion</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Tiempo</th>
+                                    <th scope="col">Imagen</th>
                                     <th scope="col" width="17%">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><button class="btn btn-warning" @click="editar()">Editar</button> <button class="btn btn-danger" @click="eliminar()">Eliminar</button></td>
+                                <tr v-for="archivo in archivos" :key="archivo.id">
+                                    <td v-text="archivo.id"></td>
+                                    <td v-text="archivo.nombre"></td>
+                                    <td v-text="archivo.tipo"></td>
+                                    <td v-text="archivo.extencion"></td>
+                                    <td v-text="archivo.fecha"></td>
+                                    <td v-text="archivo.tiempo"></td>
+                                    <td>
+                                        <b-img  v-if="archivo.tipo == 'Video'" v-bind:src="'../../../img/video.jpg'" width="70" height="50"></b-img>
+                                        <b-img  v-if="archivo.tipo == 'Imagen'" v-bind:src="'../../../img/picture.png'" width="70" height="50"></b-img>
+                                        <b-img  v-if="archivo.tipo == 'Audio'" v-bind:src="'../../../img/musica.jpg'" width="70" height="50"></b-img>
+                                        <b-img  v-if="archivo.extencion == 'txt'" v-bind:src="'../../../img/txt.jpg'" width="70" height="50"></b-img>
+                                        <b-img  v-if="archivo.extencion == 'docx'" v-bind:src="'../../../img/word.png'" width="70" height="50"></b-img>
+                                    </td>
+                                    <td><button class="btn btn-warning" @click="editar()">Editar</button> <button class="btn btn-danger" @click="eliminar(archivo.id)">Eliminar</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -44,26 +56,18 @@
                 
             </template>
             
-          <b-container fluid>
-          
-        
-                
-    
-                    
-                        <div v-if="success != ''" class="alert alert-success" role="alert">
-                          {{success}}
-                        </div>
-                        <form  enctype="multipart/form-data">
-                       
-                        <input type="file" class="form-control" v-on:change="onFileChange">
-                        <br>
-                      
+            <b-container fluid>
+            
+                            <form  enctype="multipart/form-data">
+                        
+                            <input type="file" class="form-control" v-on:change="onFileChange">
+                            <br>
+                        
 
-                        </form>
-                    
-          
-          
-          </b-container>
+                            </form>
+
+            </b-container>
+
             <div slot="modal-footer" class="w-100">
               <b-button v-if="modoAgregar"
                 variant="primary"
@@ -88,6 +92,7 @@
               <i class="fas fa-times-circle"></i>
               </b-button>
             </div>
+
           </b-modal>
     </div>
  
@@ -102,14 +107,15 @@
     export default {
         mounted() {
             console.log('Component mounted.')
+            this.listar();
         },
         data() {
             return {
               file: '',
-              success: '',
               show : false,
               modoAgregar : true,
-              tituloModal : ''
+              tituloModal : '',
+              archivos : []
             };
         },
         methods: {
@@ -117,14 +123,27 @@
                 console.log(e.target.files[0]);
                 this.file = e.target.files[0];
             },
-           
+            listar(){
+                let t = this;
+
+                axios.get('/listar/archivos')
+                .then(function (response) {
+
+                   t.archivos = response.data;
+                
+                })
+                .catch(function (error) {
+                   console.log('error: ->', error);
+                });
+            },
             agregar(){
                 if(this.file == '')
                 {
                     alert("Por favor seleccione algun archivo");
                     return;
                 }
-                let currentObj = this;
+
+                let t = this;
    
                 const config = {
                     headers: { 'content-type': 'multipart/form-data' }
@@ -135,17 +154,37 @@
    
                 axios.post('/formSubmit', formData, config)
                 .then(function (response) {
-                    currentObj.success = response.data.success;
+                   
+                    alert("Archivo subido con exito!");
+                    t.cerrarModal();
+                    t.listar();        
                 })
                 .catch(function (error) {
-                    currentObj.output = error;
+                   console.log('error:->', error);
                 });
+              
+               
             },
             editar(){
 
             },
-            eliminar(){
+            eliminar(id){
+                const params = {
+                        id : id
+                };
+
+                let t = this;
                 
+                axios.post('/eliminar/archivos',params)
+                .then(function (response) {
+
+                   alert("Archivo eliminado con exito!");
+                   t.listar(); 
+                
+                })
+                .catch(function (error) {
+                   console.log('error: ->', error);
+                });
             },
             cerrarModal(){
                 this.show = false;

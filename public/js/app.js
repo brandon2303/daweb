@@ -1830,17 +1830,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
+    this.listar();
   },
   data: function data() {
     return {
       file: '',
-      success: '',
       show: false,
       modoAgregar: true,
-      tituloModal: ''
+      tituloModal: '',
+      archivos: []
     };
   },
   methods: {
@@ -1848,13 +1854,21 @@ __webpack_require__.r(__webpack_exports__);
       console.log(e.target.files[0]);
       this.file = e.target.files[0];
     },
+    listar: function listar() {
+      var t = this;
+      axios.get('/listar/archivos').then(function (response) {
+        t.archivos = response.data;
+      })["catch"](function (error) {
+        console.log('error: ->', error);
+      });
+    },
     agregar: function agregar() {
       if (this.file == '') {
         alert("Por favor seleccione algun archivo");
         return;
       }
 
-      var currentObj = this;
+      var t = this;
       var config = {
         headers: {
           'content-type': 'multipart/form-data'
@@ -1863,13 +1877,26 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('file', this.file);
       axios.post('/formSubmit', formData, config).then(function (response) {
-        currentObj.success = response.data.success;
+        alert("Archivo subido con exito!");
+        t.cerrarModal();
+        t.listar();
       })["catch"](function (error) {
-        currentObj.output = error;
+        console.log('error:->', error);
       });
     },
     editar: function editar() {},
-    eliminar: function eliminar() {},
+    eliminar: function eliminar(id) {
+      var params = {
+        id: id
+      };
+      var t = this;
+      axios.post('/eliminar/archivos', params).then(function (response) {
+        alert("Archivo eliminado con exito!");
+        t.listar();
+      })["catch"](function (error) {
+        console.log('error: ->', error);
+      });
+    },
     cerrarModal: function cerrarModal() {
       this.show = false;
       this.file = '';
@@ -65897,45 +65924,121 @@ var render = function() {
                 _c("table", { staticClass: "table table-bordered" }, [
                   _vm._m(0),
                   _vm._v(" "),
-                  _c("tbody", [
-                    _c("tr", [
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-warning",
-                            on: {
-                              click: function($event) {
-                                return _vm.editar()
-                              }
-                            }
-                          },
-                          [_vm._v("Editar")]
-                        ),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.archivos, function(archivo) {
+                      return _c("tr", { key: archivo.id }, [
+                        _c("td", {
+                          domProps: { textContent: _vm._s(archivo.id) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(archivo.nombre) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(archivo.tipo) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(archivo.extencion) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(archivo.fecha) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(archivo.tiempo) }
+                        }),
                         _vm._v(" "),
                         _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            on: {
-                              click: function($event) {
-                                return _vm.eliminar()
+                          "td",
+                          [
+                            archivo.tipo == "Video"
+                              ? _c("b-img", {
+                                  attrs: {
+                                    src: "../../../img/video.jpg",
+                                    width: "70",
+                                    height: "50"
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            archivo.tipo == "Imagen"
+                              ? _c("b-img", {
+                                  attrs: {
+                                    src: "../../../img/picture.png",
+                                    width: "70",
+                                    height: "50"
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            archivo.tipo == "Audio"
+                              ? _c("b-img", {
+                                  attrs: {
+                                    src: "../../../img/musica.jpg",
+                                    width: "70",
+                                    height: "50"
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            archivo.extencion == "txt"
+                              ? _c("b-img", {
+                                  attrs: {
+                                    src: "../../../img/txt.jpg",
+                                    width: "70",
+                                    height: "50"
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            archivo.extencion == "docx"
+                              ? _c("b-img", {
+                                  attrs: {
+                                    src: "../../../img/word.png",
+                                    width: "70",
+                                    height: "50"
+                                  }
+                                })
+                              : _vm._e()
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning",
+                              on: {
+                                click: function($event) {
+                                  return _vm.editar()
+                                }
                               }
-                            }
-                          },
-                          [_vm._v("Eliminar")]
-                        )
+                            },
+                            [_vm._v("Editar")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.eliminar(archivo.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Eliminar")]
+                          )
+                        ])
                       ])
-                    ])
-                  ])
+                    }),
+                    0
+                  )
                 ])
               ])
             ])
@@ -65977,23 +66080,6 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("b-container", { attrs: { fluid: "" } }, [
-              _vm.success != ""
-                ? _c(
-                    "div",
-                    {
-                      staticClass: "alert alert-success",
-                      attrs: { role: "alert" }
-                    },
-                    [
-                      _vm._v(
-                        "\r\n                          " +
-                          _vm._s(_vm.success) +
-                          "\r\n                        "
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
               _c("form", { attrs: { enctype: "multipart/form-data" } }, [
                 _c("input", {
                   staticClass: "form-control",
@@ -66080,6 +66166,12 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Tipo")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Extencion")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Tiempo")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Imagen")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col", width: "17%" } }, [
           _vm._v("Opciones")
