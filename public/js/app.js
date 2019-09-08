@@ -1835,6 +1835,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -1846,7 +1854,8 @@ __webpack_require__.r(__webpack_exports__);
       show: false,
       modoAgregar: true,
       tituloModal: '',
-      archivos: []
+      archivos: [],
+      id: 0
     };
   },
   methods: {
@@ -1884,7 +1893,25 @@ __webpack_require__.r(__webpack_exports__);
         console.log('error:->', error);
       });
     },
-    editar: function editar() {},
+    editar: function editar() {
+      if (this.file == '') {
+        alert("Por favor complete el campo 'Nombre'");
+        return;
+      }
+
+      var t = this;
+      var config = {
+        id: this.id,
+        nombre: this.file
+      };
+      axios.post('/formSubmit/editar', config).then(function (response) {
+        alert("Archivo actualizado con exito!");
+        t.cerrarModal();
+        t.listar();
+      })["catch"](function (error) {
+        console.log('error:->', error);
+      });
+    },
     eliminar: function eliminar(id) {
       var params = {
         id: id
@@ -1900,11 +1927,15 @@ __webpack_require__.r(__webpack_exports__);
     cerrarModal: function cerrarModal() {
       this.show = false;
       this.file = '';
+      this.id = 0;
     },
     abrirModal: function abrirModal(modo) {
-      var file = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      var archivo = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
       this.show = true;
       if (modo == 'agregar') this.tituloModal = 'AGREGAR';else {
+        console.log('nombre', archivo.nombre);
+        this.file = archivo.nombre;
+        this.id = archivo.id;
         this.modoAgregar = false;
         this.tituloModal = 'EDITAR';
       }
@@ -66010,12 +66041,25 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [
                           _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: "../../../upload/" + archivo.nombre,
+                                target: "_blank"
+                              }
+                            },
+                            [_vm._v("Ver archivo")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
                             "button",
                             {
                               staticClass: "btn btn-warning",
                               on: {
                                 click: function($event) {
-                                  return _vm.editar()
+                                  return _vm.abrirModal("", archivo)
                                 }
                               }
                             },
@@ -66080,15 +66124,47 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("b-container", { attrs: { fluid: "" } }, [
-              _c("form", { attrs: { enctype: "multipart/form-data" } }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "file" },
-                  on: { change: _vm.onFileChange }
-                }),
-                _vm._v(" "),
-                _c("br")
-              ])
+              _vm.modoAgregar
+                ? _c("div", [
+                    _c("form", { attrs: { enctype: "multipart/form-data" } }, [
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "file" },
+                        on: { change: _vm.onFileChange }
+                      }),
+                      _vm._v(" "),
+                      _c("br")
+                    ])
+                  ])
+                : _c("div", [
+                    _c("label", [_vm._v("No: " + _vm._s(_vm.id))]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("Nombre:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.file,
+                          expression: "file"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.file },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.file = $event.target.value
+                        }
+                      }
+                    })
+                  ])
             ]),
             _vm._v(" "),
             _c(
@@ -66105,7 +66181,11 @@ var render = function() {
                       {
                         staticClass: "float-right ml-2",
                         attrs: { variant: "primary" },
-                        on: { click: _vm.agregar }
+                        on: {
+                          click: function($event) {
+                            return _vm.agregar()
+                          }
+                        }
                       },
                       [
                         _vm._v("Agregar\r\n              "),
@@ -66117,7 +66197,11 @@ var render = function() {
                       {
                         staticClass: "float-right ml-2",
                         attrs: { variant: "primary" },
-                        on: { click: _vm.editar }
+                        on: {
+                          click: function($event) {
+                            return _vm.editar()
+                          }
+                        }
                       },
                       [
                         _vm._v("Editar\r\n              "),
@@ -66169,9 +66253,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Tiempo")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Hora")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Imagen")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Ver")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col", width: "17%" } }, [
           _vm._v("Opciones")

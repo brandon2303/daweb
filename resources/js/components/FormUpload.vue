@@ -15,8 +15,9 @@
                                     <th scope="col">Tipo</th>
                                     <th scope="col">Extencion</th>
                                     <th scope="col">Fecha</th>
-                                    <th scope="col">Tiempo</th>
+                                    <th scope="col">Hora</th>
                                     <th scope="col">Imagen</th>
+                                      <th scope="col">Ver</th>
                                     <th scope="col" width="17%">Opciones</th>
                                 </tr>
                             </thead>
@@ -35,7 +36,8 @@
                                         <b-img  v-if="archivo.extencion == 'txt'" v-bind:src="'../../../img/txt.jpg'" width="70" height="50"></b-img>
                                         <b-img  v-if="archivo.extencion == 'docx'" v-bind:src="'../../../img/word.png'" width="70" height="50"></b-img>
                                     </td>
-                                    <td><button class="btn btn-warning" @click="editar()">Editar</button> <button class="btn btn-danger" @click="eliminar(archivo.id)">Eliminar</button></td>
+                                    <td><a v-bind:href="'../../../upload/'+archivo.nombre" target="_blank">Ver archivo</a></td>
+                                    <td><button class="btn btn-warning" @click="abrirModal('',archivo)">Editar</button> <button class="btn btn-danger" @click="eliminar(archivo.id)">Eliminar</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -57,7 +59,7 @@
             </template>
             
             <b-container fluid>
-            
+            <div v-if="modoAgregar">
                             <form  enctype="multipart/form-data">
                         
                             <input type="file" class="form-control" v-on:change="onFileChange">
@@ -65,6 +67,12 @@
                         
 
                             </form>
+            </div>
+            <div v-else>
+                <label>No: {{id}}</label>
+                <br>
+                <label>Nombre:</label> <input type="text" class="form-control" v-model="file">
+            </div>
 
             </b-container>
 
@@ -72,14 +80,14 @@
               <b-button v-if="modoAgregar"
                 variant="primary"
                 class="float-right ml-2"
-                @click="agregar"
+                @click="agregar()"
               >Agregar
               <i class="fas fa-plus-circle"></i>
               </b-button>
               <b-button v-else
                 variant="primary"
                 class="float-right ml-2"
-                @click="editar"
+                @click="editar()"
               >Editar
               <i class="fas fa-pen"></i>
               </b-button>
@@ -115,7 +123,8 @@
               show : false,
               modoAgregar : true,
               tituloModal : '',
-              archivos : []
+              archivos : [],
+              id : 0
             };
         },
         methods: {
@@ -166,7 +175,29 @@
                
             },
             editar(){
+                if(this.file == '')
+                {
+                    alert("Por favor complete el campo 'Nombre'");
+                    return;
+                }
 
+                let t = this;
+   
+                const config = {
+                    id:  this.id,
+                    nombre : this.file
+                }
+    
+                axios.post('/formSubmit/editar', config)
+                .then(function (response) {
+                   
+                    alert("Archivo actualizado con exito!");
+                    t.cerrarModal();
+                    t.listar();        
+                })
+                .catch(function (error) {
+                   console.log('error:->', error);
+                });
             },
             eliminar(id){
                 const params = {
@@ -189,13 +220,18 @@
             cerrarModal(){
                 this.show = false;
                 this.file = '';
+                this.id = 0;
             },
-            abrirModal(modo, file = []){
+            abrirModal(modo, archivo = []){
                 this.show = true;
                 if(modo == 'agregar')
                     this.tituloModal = 'AGREGAR';
                 else
                 {
+
+                    console.log('nombre', archivo.nombre)
+                    this.file = archivo.nombre;
+                    this.id = archivo.id;
                     this.modoAgregar = false;
                     this.tituloModal= 'EDITAR';
                 }
