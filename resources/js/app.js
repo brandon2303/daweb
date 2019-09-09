@@ -23,6 +23,7 @@ Vue.use(BootstrapVue)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('form-upload-component', require('./components/FormUpload.vue').default);
+Vue.component('registro-component', require('./components/registro.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

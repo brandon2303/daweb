@@ -31,7 +31,7 @@
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
       <ul class="navbar-nav">
         <li class="nav-item ">
-          <a class="nav-link text-white" href="#">DESAWEB.DAVIS</a>
+          <a class="nav-link text-white" href="#">DESAWEB CASTILLO</a>
         </li>
       </ul>
     </div>
@@ -50,19 +50,11 @@
         </main>
 
     
-    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark" style="background: #008aa2;">
-      <a class="navbar-brand" href="#">   <img class="mr-3" src="brandon.jpeg" alt="" width="48" height="48"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Davis Gutierrez Brandon<span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+        <nav class="navbar navbar-expand "  style="background: #008aa2;">
+            <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
+                <img style="border-radius: 50%;"width="100" height="80" src="img/perfil_fede.png">  <label class="text-center" >By Federico Castillo Valenzuela <a href="http://www.deapw.xyz" style="color:white">Unidad 1 DEAPW</a></label>
+            </div> 
+        </nav>
 
     </div>
 

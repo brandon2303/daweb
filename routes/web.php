@@ -20,7 +20,7 @@ Route::get('uploadfiles', function () {
     return view('uploadfiles');
 });
 
-Route::post('formSubmit','FileController@formSubmit');
+
 
 Route::get('/nuevo', function () {
     return view('auth.register');
@@ -30,6 +30,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('formSubmit','FileController@formSubmit');
 Route::get('/listar/archivos', 'FileController@listar');
 Route::post('/eliminar/archivos', 'FileController@eliminar');
 Route::post('/formSubmit/editar', 'FileController@editar');
+
+Route::post('/agregar/users', 'NationController@agregar');
+Route::get('/listar/nations', 'NationController@listar');
