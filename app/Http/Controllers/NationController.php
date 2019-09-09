@@ -11,11 +11,7 @@ class NationController extends Controller
 {
     public function listar()
     {
-         return $r = Nation::all();
+        return $r = Nation::all();
     }
 
-    public function agregar(Request $request)
-    {
-        
-    }
 }

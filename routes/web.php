@@ -35,5 +35,5 @@ Route::get('/listar/archivos', 'FileController@listar');
 Route::post('/eliminar/archivos', 'FileController@eliminar');
 Route::post('/formSubmit/editar', 'FileController@editar');
 
-Route::post('/agregar/users', 'NationController@agregar');
+Route::post('/agregar/users', 'UserController@agregar');
 Route::get('/listar/nations', 'NationController@listar');
