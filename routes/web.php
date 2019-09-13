@@ -12,8 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('/welcome');
 });
+
+
+Route::get('uploadfiles', function () {
+    return view('uploadfiles');
+});
+
+
 
 Route::get('/nuevo', function () {
     return view('auth.register');
@@ -22,3 +29,11 @@ Route::get('/nuevo', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('formSubmit','FileController@formSubmit');
+Route::get('/listar/archivos', 'FileController@listar');
+Route::post('/eliminar/archivos', 'FileController@eliminar');
+Route::post('/formSubmit/editar', 'FileController@editar');
+
+Route::post('/agregar/users', 'UserController@agregar');
+Route::get('/listar/nations', 'NationController@listar');

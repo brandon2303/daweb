@@ -9,8 +9,8 @@
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Acceso</div>
-
+                <div class="card-header">Acceso   <a href="{{ url('/') }}"  class="btn btn-warning" style="float:right;">Regresar</a></div>
+              
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -68,23 +68,9 @@
         
     </div>
 
-    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">   <img class="mr-3" src="http://placekitten.com/g/140/140" alt="" width="48" height="48"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Davis Gutierrez Brandon<span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
- 
 </div>
+<br>
+<br>
 
-
-
+<br><br><br><br><br><br>
 @endsection
