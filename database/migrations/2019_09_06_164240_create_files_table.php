@@ -18,6 +18,8 @@ class CreateFilesTable extends Migration
             $table->string('nombre');
             $table->string('tipo');
             $table->string('extencion');
+            $table->string('fecha');
+            $table->string('tiempo');
             $table->timestamps();
         });
     }
