@@ -1842,6 +1842,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -1854,8 +1864,17 @@ __webpack_require__.r(__webpack_exports__);
       modoAgregar: true,
       tituloModal: '',
       archivos: [],
-      id: 0
+      id: 0,
+      fecha: '',
+      nombre: '',
+      validated: 0,
+      validar: 1
     };
+  },
+  watch: {
+    file: function file() {
+      if (this.validar != 0) this.validated = 1;
+    }
   },
   methods: {
     onFileChange: function onFileChange(e) {
@@ -1893,17 +1912,29 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     editar: function editar() {
-      if (this.file == '') {
+      if (this.nombre == '') {
         alert("Por favor complete el campo 'Nombre'");
         return;
       }
 
       var t = this;
+
+      if (this.validated == 1) {
+        this.fecha == '';
+      }
+
       var config = {
-        id: this.id,
-        nombre: this.file
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
       };
-      axios.post('/formSubmit/editar', config).then(function (response) {
+      var formData = new FormData();
+      formData.append('file', this.file);
+      formData.append('id', this.id);
+      formData.append('nombre', this.nombre);
+      formData.append('fecha', this.fecha);
+      formData.append('nuevo', this.validated);
+      axios.post('/formSubmit/editar', formData, config).then(function (response) {
         alert("Archivo actualizado con exito!");
         t.cerrarModal();
         t.listar();
@@ -1927,14 +1958,19 @@ __webpack_require__.r(__webpack_exports__);
       this.show = false;
       this.file = '';
       this.id = 0;
+      this.modoAgregar = true;
+      this.validated = 0;
+      this.validar = 0;
     },
     abrirModal: function abrirModal(modo) {
       var archivo = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
       this.show = true;
       if (modo == 'agregar') this.tituloModal = 'AGREGAR';else {
+        this.validar = 1;
         console.log('nombre', archivo.nombre);
-        this.file = archivo.nombre;
+        this.nombre = archivo.nombre;
         this.id = archivo.id;
+        this.fecha = archivo.fecha;
         this.modoAgregar = false;
         this.tituloModal = 'EDITAR';
       }
@@ -2085,6 +2121,134 @@ __webpack_require__.r(__webpack_exports__);
     },
     validar: function validar() {},
     agregar: function agregar() {
+      //hobi gym
+      if (this.gym) {
+        this.hobi = 'GYM';
+      }
+
+      if (this.musica) {
+        this.hobi = 'Musica';
+      }
+
+      if (this.danza) {
+        this.hobi = 'Danza';
+      }
+
+      if (this.deportes) {
+        this.hobi = 'Deporte';
+      }
+
+      if (this.gamer) {
+        this.hobi = 'Gamer';
+      }
+
+      if (this.gym && this.musica) {
+        this.hobi = 'GYM y Musica';
+      }
+
+      if (this.gym && this.danza) {
+        this.hobi = 'GYM y Danza';
+      }
+
+      if (this.gym && this.deportes) {
+        this.hobi = 'GYM y Deportes';
+      }
+
+      if (this.gym && this.gamer) {
+        this.hobi = 'GYM y Gamer';
+      }
+
+      if (this.musica && this.danza) {
+        this.hobi = 'Musica y Danza';
+      }
+
+      if (this.musica && this.deportes) {
+        this.hobi = 'Musica y Deportes';
+      }
+
+      if (this.musica && this.gamer) {
+        this.hobi = 'Musica y Gamer';
+      }
+
+      if (this.danza && this.deportes) {
+        this.hobi = 'Danza y Deportes';
+      }
+
+      if (this.danza && this.gamer) {
+        this.hobi = 'Danza y Gamer';
+      }
+
+      if (this.deportes && this.gamer) {
+        this.hobi = 'Deporte y Gamer';
+      }
+
+      if (this.gym && this.musica && this.danza) {
+        this.hobi = 'GYM, Danza y Musica';
+      }
+
+      if (this.gym && this.musica && this.deportes) {
+        this.hobi = 'GYM, Deportes y Musica';
+      }
+
+      if (this.gym && this.musica && this.gamer) {
+        this.hobi = 'GYM, Gamer y Musica';
+      }
+
+      if (this.gym && this.danza && this.deportes) {
+        this.hobi = 'GYM, Danza y Deportes';
+      }
+
+      if (this.gym && this.danza && this.gamer) {
+        this.hobi = 'GYM, Danza y Gamer';
+      }
+
+      if (this.gym && this.deportes && this.gamer) {
+        this.hobi = 'GYM, Deportes y Gamer';
+      }
+
+      if (this.musica && this.danza && this.deportes) {
+        this.hobi = 'Musica, Danza y Deportes ';
+      }
+
+      if (this.musica && this.gamer && this.danza) {
+        this.hobi = 'Musica, Danza y Gamer ';
+      }
+
+      if (this.musica && this.gamer && this.deportes) {
+        this.hobi = 'Musica, Deportes y Gamer ';
+      }
+
+      if (this.danza && this.deportes && this.gamer) {
+        this.hobi = 'Danza, Deportes y Gamer ';
+      }
+
+      if (this.gamer && this.musica && this.danza && this.deportes) {
+        this.hobi = 'Gamer, Danza, Deportes y Musica';
+      }
+
+      if (this.gym && this.musica && this.danza && this.deportes) {
+        this.hobi = 'GYM, Danza, Deportes y Musica';
+      }
+
+      if (this.gym && this.musica && this.danza && this.gamer) {
+        this.hobi = 'GYM, Danza, Gamer y Musica';
+      }
+
+      if (this.gym && this.musica && this.deportes && this.gamer) {
+        this.hobi = 'GYM, Deportes, Gamer y Musica';
+      }
+
+      if (this.gym && this.danza && this.deportes && this.gamer) {
+        this.hobi = 'GYM, Deportes, Gamer y Danza';
+      }
+
+      if (this.gym && this.musica && this.danza && this.gamer && this.deportes) {
+        this.hobi = 'GYM, Danza, Deportes, Gamer y Musica';
+      } //end hobi gym
+      //hobi musica
+      //aqui epiesan las validaciones--->>
+
+
       if (this.email == '') {
         alert("Por complete el campo email");
         return;
@@ -2110,12 +2274,19 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password,
         fecha_nacimiento: this.fecha_nacimiento,
+        hobi: this.hobi,
         nation_id: this.nation_id,
         sexo: this.sexo
       };
       axios.post('/agregar/users', data).then(function (response) {
         alert("Usuario registrado con exito");
-        this.listarNAtions();
+        this.name = '';
+        this.email = '';
+        this.password = '';
+        this.fecha_nacimiento = '';
+        this.hobi = '';
+        this.nation_id = 0;
+        this.sexo = '';
       })["catch"](function (error) {
         console.log('error: ->', error);
       });
@@ -66331,21 +66502,57 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.file,
-                          expression: "file"
+                          value: _vm.nombre,
+                          expression: "nombre"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.file },
+                      attrs: { type: "text", disabled: _vm.validated == 1 },
+                      domProps: { value: _vm.nombre },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.file = $event.target.value
+                          _vm.nombre = $event.target.value
                         }
                       }
+                    }),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("Fecha:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fecha,
+                          expression: "fecha"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "date", disabled: _vm.validated == 1 },
+                      domProps: { value: _vm.fecha },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.fecha = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("Archivo")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: { type: "file" },
+                      on: { change: _vm.onFileChange }
                     })
                   ])
             ]),
@@ -66773,7 +66980,7 @@ var render = function() {
               }
             ],
             staticClass: "form-check-input",
-            attrs: { id: "my-input", type: "checkbox" },
+            attrs: { type: "checkbox" },
             domProps: {
               checked: Array.isArray(_vm.gym)
                 ? _vm._i(_vm.gym, null) > -1

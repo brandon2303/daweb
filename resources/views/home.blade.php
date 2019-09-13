@@ -27,14 +27,9 @@
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
-                        </div>
-
-                        
-
-                        
-                    @endif
-                                 
-                    Bienvenido 
+                        </div>  
+                    @endif   
+                    Bienvenido(a): {{ Auth::user()->name }}, tus hobies favoritos son:  {{ Auth::user()->hobi }}
                 </div>
             </div>
         </div>

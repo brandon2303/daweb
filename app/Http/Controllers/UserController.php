@@ -18,6 +18,7 @@ class UserController extends Controller
         $obj->email = $request->email;
         $obj->password = $clave;
         $obj->fecha_nacimiento =$request->fecha_nacimiento;
+        $obj->hobi = $request->hobi;
         $obj->nation_id = $request->nation_id;
         $obj->sexo = $request->sexo;
         $obj->save();

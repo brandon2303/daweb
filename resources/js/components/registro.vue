@@ -64,7 +64,7 @@
 
                 <div class="form-group row">
                     <div class="form-check col-md-2 col-form-label text-md-right" >
-                        <input v-model="gym" id="my-input" class="form-check-input" type="checkbox">
+                        <input v-model="gym" class="form-check-input" type="checkbox">
                         <label for="my-input" class="form-check-label">GYM</label>
                     </div>
 
@@ -143,13 +143,162 @@ export default {
           
         },
         agregar(){
-                if(this.email == '')
+            //hobi gym
+            if(this.gym)
+            {
+                this.hobi = 'GYM';
+            }
+            if(this.musica)
+            {
+                this.hobi = 'Musica';
+            }
+              if(this.danza)
+            {
+                this.hobi = 'Danza';
+            }
+
+            if(this.deportes)
+            {
+                this.hobi = 'Deporte';
+            }
+
+            if(this.gamer)
+            {
+                this.hobi = 'Gamer';
+            }
+
+            if(this.gym && this.musica)
+            {
+                this.hobi = 'GYM y Musica';
+            }
+            if(this.gym && this.danza)
+            {
+                this.hobi = 'GYM y Danza';
+            }
+            if(this.gym && this.deportes)
+            {
+                this.hobi = 'GYM y Deportes';
+            }
+            if(this.gym && this.gamer)
+            {
+                this.hobi = 'GYM y Gamer';
+            }
+
+            
+            if(this.musica && this.danza)
+            {
+                this.hobi = 'Musica y Danza';
+            }
+            if(this.musica && this.deportes)
+            {
+                this.hobi = 'Musica y Deportes';
+            }
+            if(this.musica && this.gamer)
+            {
+                this.hobi = 'Musica y Gamer';
+            }
+
+            if(this.danza && this.deportes)
+            {
+                this.hobi = 'Danza y Deportes';
+            }
+            if(this.danza && this.gamer)
+            {
+                this.hobi = 'Danza y Gamer';
+            }
+
+            if(this.deportes && this.gamer)
+            {
+                this.hobi = 'Deporte y Gamer';
+            }
+
+            if(this.gym && this.musica && this.danza)
+            {
+                this.hobi = 'GYM, Danza y Musica';
+            }
+            if(this.gym && this.musica && this.deportes)
+            {
+                this.hobi = 'GYM, Deportes y Musica';
+            }
+            if(this.gym && this.musica && this.gamer)
+            {
+                this.hobi = 'GYM, Gamer y Musica';
+            }
+
+            if(this.gym && this.danza && this.deportes)
+            {
+                this.hobi = 'GYM, Danza y Deportes';
+            }
+            if(this.gym && this.danza && this.gamer)
+            {
+                this.hobi = 'GYM, Danza y Gamer';
+            }
+
+            if(this.gym && this.deportes && this.gamer)
+            {
+                this.hobi = 'GYM, Deportes y Gamer';
+            }
+
+            if(this.musica && this.danza && this.deportes)
+            {
+                this.hobi = 'Musica, Danza y Deportes ';
+            }
+           
+            if(this.musica && this.gamer && this.danza)
+            {
+                this.hobi = 'Musica, Danza y Gamer ';
+            }
+            if(this.musica && this.gamer && this.deportes)
+            {
+                this.hobi = 'Musica, Deportes y Gamer ';
+            }
+            
+            if(this.danza && this.deportes && this.gamer)
+            {
+                this.hobi = 'Danza, Deportes y Gamer ';
+            }
+
+            if(this.gamer && this.musica && this.danza && this.deportes)
+            {
+                this.hobi = 'Gamer, Danza, Deportes y Musica';
+            }
+            if(this.gym && this.musica && this.danza && this.deportes)
+            {
+                this.hobi = 'GYM, Danza, Deportes y Musica';
+            }
+            if(this.gym && this.musica && this.danza && this.gamer)
+            {
+                this.hobi = 'GYM, Danza, Gamer y Musica';
+            }
+            if(this.gym && this.musica && this.deportes && this.gamer)
+            {
+                this.hobi = 'GYM, Deportes, Gamer y Musica';
+            }
+            if(this.gym && this.danza && this.deportes && this.gamer)
+            {
+                this.hobi = 'GYM, Deportes, Gamer y Danza';
+            }
+
+            if(this.gym && this.musica && this.danza && this.gamer && this.deportes)
+            {
+                this.hobi = 'GYM, Danza, Deportes, Gamer y Musica';
+            }
+
+            //end hobi gym
+
+            //hobi musica
+            
+            
+          
+
+            //aqui epiesan las validaciones--->>
+            if(this.email == '')
             {
                   alert("Por complete el campo email");
                 return;
             }
           
-             if(this.password == '')
+            if(this.password == '')
             {
                   alert("Por complete el campo contraseña");
                 return;
@@ -164,19 +313,30 @@ export default {
                 alert("Por favor seleccione un sexo");
                 return;
             }
+
+
              
                 const data = {
                            name: this.name,
                            email : this.email,
                            password :this.password,
                            fecha_nacimiento: this.fecha_nacimiento,
+                           hobi : this.hobi,
                            nation_id : this.nation_id,
                            sexo : this.sexo
                           };
             axios.post('/agregar/users', data)
             .then(function (response) {
                 alert("Usuario registrado con exito");
-               this.listarNAtions();
+                
+                
+                this.name = '';
+                this.email = '';
+                this.password = '';
+                this.fecha_nacimiento = '';
+                this.hobi = '';
+                this.nation_id = 0;
+                this.sexo = '';
             
             })
             .catch(function (error) {

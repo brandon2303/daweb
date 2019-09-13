@@ -70,7 +70,17 @@
             <div v-else>
                 <label>No: {{id}}</label>
                 <br>
-                <label>Nombre:</label> <input type="text" class="form-control" v-model="file">
+
+                <label>Nombre:</label> 
+                <input type="text" :disabled="validated == 1"  class="form-control" v-model="nombre">
+
+                <br>
+                <label>Fecha:</label> 
+                <input type="date" :disabled="validated == 1" class="form-control" v-model="fecha">
+               
+                <br>
+                <label>Archivo</label>
+                <input type="file" class="form-control" v-on:change="onFileChange">
             </div>
 
             </b-container>
@@ -123,8 +133,18 @@
               modoAgregar : true,
               tituloModal : '',
               archivos : [],
-              id : 0
+              id : 0,
+              fecha : '',
+              nombre : '',
+              validated : 0,
+              validar : 1
             };
+        },
+        watch: {
+            file(){
+                 if(this.validar != 0)
+                     this.validated = 1;
+            }
         },
         methods: {
             onFileChange(e){
@@ -174,20 +194,30 @@
                
             },
             editar(){
-                if(this.file == '')
+                
+                if(this.nombre == '')
                 {
                     alert("Por favor complete el campo 'Nombre'");
                     return;
                 }
-
+                
                 let t = this;
-   
-                const config = {
-                    id:  this.id,
-                    nombre : this.file
+                if(this.validated == 1)
+                {
+                    this.fecha == '';
                 }
-    
-                axios.post('/formSubmit/editar', config)
+                const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                }
+     
+                let formData = new FormData();
+                formData.append('file', this.file);
+                formData.append ('id', this.id);
+                formData.append ('nombre' , this.nombre);
+                formData.append ('fecha', this.fecha);
+                formData.append('nuevo', this.validated);
+            
+                axios.post('/formSubmit/editar',formData, config)
                 .then(function (response) {
                    
                     alert("Archivo actualizado con exito!");
@@ -220,6 +250,9 @@
                 this.show = false;
                 this.file = '';
                 this.id = 0;
+                this.modoAgregar = true;
+                this.validated = 0;
+                this.validar = 0;
             },
             abrirModal(modo, archivo = []){
                 this.show = true;
@@ -227,12 +260,14 @@
                     this.tituloModal = 'AGREGAR';
                 else
                 {
-
+                    this.validar = 1;
                     console.log('nombre', archivo.nombre)
-                    this.file = archivo.nombre;
+                    this.nombre = archivo.nombre;
                     this.id = archivo.id;
+                    this.fecha = archivo.fecha;
                     this.modoAgregar = false;
                     this.tituloModal= 'EDITAR';
+                    
                 }
             }
         }

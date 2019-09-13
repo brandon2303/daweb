@@ -33,9 +33,35 @@ class FileController extends Controller
     }
     public function editar(Request $request)
     {
-        $obj = File::find($request->id);
-        $obj->nombre = $request->nombre;
-        $obj->save();
+        
+        if($request->nuevo == 0)
+        {   $obj = File::find($request->id);
+            $obj->nombre = $request->nombre;
+            $obj->fecha = $request->fecha;
+            $obj->save();
+        }
+        else
+        {
+            $obj = File::find($request->id);
+           
+            $extencion = $request->file->getClientOriginalExtension();
+            $type = $this->getType($extencion);
+        
+            $fileName = time().'.'.$request->file->getClientOriginalExtension();
+            $request->file->move(public_path('upload'), $fileName);
+            
+            $fecha = Carbon::now('America/Phoenix');
+        
+            $fecha2 = $fecha->format('Y-m-d',$fecha);
+            $tiempo = $fecha->format('H:i:s',$fecha);
+
+            $obj->nombre = $fileName;
+            $obj->tipo = $type;
+            $obj->extencion = $extencion;
+            $obj->fecha = $fecha2;
+            $obj->tiempo = $tiempo;
+            $obj->save();
+        }
     }
     public function getType($extencion)
     {

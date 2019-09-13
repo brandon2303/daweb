@@ -9,8 +9,8 @@
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Acceso</div>
-
+                <div class="card-header">Acceso   <a href="{{ url('/') }}"  class="btn btn-warning" style="float:right;">Regresar</a></div>
+              
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
