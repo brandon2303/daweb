@@ -20,7 +20,17 @@ Route::get('uploadfiles', function () {
     return view('uploadfiles');
 });
 
+//Rutas del crud
 
+Route::get('crudMvc', function () {
+    return view('crudMvc');
+});
+Route::get('/casas', 'ControllerCasas@listar');
+Route::post('/casas/agregar','ControllerCasas@agregar');
+Route::post('/casas/editar','ControllerCasas@editar');
+Route::post('/casas/eliminar','ControllerCasas@eliminar');
+
+//--->
 
 Route::get('/nuevo', function () {
     return view('auth.register');

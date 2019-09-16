@@ -72,6 +72,8 @@
                     @else
                         <a href="{{ url('uploadfiles') }}">Upload files U1</a>
                         <a href="{{ route('login') }}">Seguridad U1</a>
+                        <a href="{{ url('crudMvc') }}">MVC CRUD U2</a>
+                      
                     @endauth
                 </div>
             @endif
