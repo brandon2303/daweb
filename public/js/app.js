@@ -67224,7 +67224,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container" },
     [
       _c("br"),
       _vm._v(" "),
@@ -67989,7 +67988,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo")]),
+        _c("th", { attrs: { scope: "col", width: "5%" } }, [_vm._v("Costo")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Giro")]),
         _vm._v(" "),

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div>
         <br>
         <h1>Administracion de casas</h1>
         <div class="row justify-content-center">
@@ -20,7 +20,7 @@
                                     <th scope="col"  width="5%">Mts. terreno</th>
                                     <th scope="col"  width="5%">Plantas</th>
                                     <th scope="col">Fecha</th>
-                                    <th scope="col">Costo</th>
+                                    <th scope="col" width="5%">Costo</th>
                                     <th scope="col">Giro</th>
                                     <th scope="col">Imagen</th>
                                     <th scope="col" width="17%">Opciones</th>
