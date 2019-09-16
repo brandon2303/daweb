@@ -1875,9 +1875,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.listar();
+    this.listarGiros();
   },
   data: function data() {
     return {
@@ -1896,13 +1926,25 @@ __webpack_require__.r(__webpack_exports__);
       tituloModal: '',
       giro_id: 0,
       url: null,
-      file: null
+      file: null,
+      imagenNueva: false,
+      fileUp: '',
+      arrayGiros: []
     };
   },
   methods: {
     onFileChange: function onFileChange(e) {
       this.file = e.target.files[0];
       this.url = URL.createObjectURL(this.file);
+      this.imagenNueva = true;
+    },
+    listarGiros: function listarGiros() {
+      var t = this;
+      axios.get('/listar/giros').then(function (response) {
+        t.arrayGiros = response.data;
+      })["catch"](function (error) {
+        console.log('error: ->', error);
+      });
     },
     listar: function listar() {
       var t = this;
@@ -1930,6 +1972,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('plantas', this.plantas);
       formData.append('costo', this.costo);
       formData.append('fecha', this.fecha);
+      formData.append('giro_id', this.giro_id);
       formData.append('file', this.file);
       axios.post('/casas/agregar', formData, config).then(function (response) {
         alert("Registro agregado con exito");
@@ -1956,6 +1999,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('plantas', this.plantas);
       formData.append('costo', this.costo);
       formData.append('fecha', this.fecha);
+      formData.append('giro_id', this.giro_id);
       formData.append('file', this.file);
       axios.post('/casas/editar', formData, config).then(function (response) {
         alert("Registro editado con exito");
@@ -1996,7 +2040,8 @@ __webpack_require__.r(__webpack_exports__);
         this.plantas = casa.plantas;
         this.fecha = casa.fecha;
         this.costo = casa.costo;
-        this.imagen = casa.imagen;
+        this.giro_id = casa.giro_id;
+        this.fileUp = casa.imagen;
       }
     },
     cerrarModal: function cerrarModal() {
@@ -2010,6 +2055,10 @@ __webpack_require__.r(__webpack_exports__);
       this.fecha = '';
       this.costo = 0;
       this.id = 0;
+      this.file = null;
+      this.imagenNueva = false;
+      this.fileUp = '';
+      this.giro_id = 0;
     }
   }
 });
@@ -67251,6 +67300,26 @@ var render = function() {
                           domProps: { textContent: _vm._s(casa.costo) }
                         }),
                         _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(casa.nombre_giro) }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c("b-img", {
+                              attrs: {
+                                rounded: "",
+                                alt: "Rounded image",
+                                width: "60",
+                                height: "40",
+                                src: "../../../upload/" + casa.imagen
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
                         _c(
                           "td",
                           [
@@ -67629,11 +67698,74 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "b-row",
+                  { staticClass: "mb-1" },
+                  [
+                    _c("b-col", { attrs: { cols: "3" } }, [
+                      _vm._v(
+                        "\n                        Giro  de negocio:\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("b-col", { attrs: { cols: "9" } }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.giro_id,
+                              expression: "giro_id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.giro_id = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { value: "0", disabled: "" } },
+                            [_vm._v("Seleccione un giro de negocio:")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.arrayGiros, function(giro) {
+                            return _c("option", {
+                              key: giro.id,
+                              domProps: {
+                                value: giro.id,
+                                textContent: _vm._s(giro.nombre)
+                              }
+                            })
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-row",
                   { staticClass: "mb-1 " },
                   [
                     _c("b-col", { attrs: { cols: "3" } }, [
                       _vm._v(
-                        "\n                                    Imagen de perfil:\n                                "
+                        "\n                        Imagen de perfil:\n                    "
                       )
                     ]),
                     _vm._v(" "),
@@ -67644,57 +67776,115 @@ var render = function() {
                         on: { change: _vm.onFileChange }
                       }),
                       _vm._v(" "),
-                      _c("div", { staticClass: "mt-3" }, [
-                        _vm._v(
-                          "Imagen seleccionada: " +
-                            _vm._s(_vm.file ? _vm.file.name : "") +
-                            "\n                                        "
-                        ),
-                        _c(
-                          "button",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.file,
-                                expression: "file"
-                              }
-                            ],
-                            staticClass: "close",
-                            attrs: { type: "button", "aria-label": "Close" },
-                            on: {
-                              click: function($event) {
-                                ;(_vm.file = null),
-                                  (_vm.url = null),
-                                  (_vm.imagen = "")
-                              }
-                            }
-                          },
-                          [
-                            _c("span", { attrs: { "aria-hidden": "true" } }, [
-                              _vm._v("×")
-                            ])
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { attrs: { id: "preview" } },
-                        [
-                          _vm.url
-                            ? _c("b-img", {
-                                attrs: {
-                                  rounded: "",
-                                  alt: "Rounded image",
-                                  src: _vm.url
-                                }
-                              })
-                            : _vm._e()
-                        ],
-                        1
-                      )
+                      _c("div", { attrs: { id: "preview" } }, [
+                        _vm.imagenNueva
+                          ? _c(
+                              "div",
+                              [
+                                _c("div", { staticClass: "mt-3" }, [
+                                  _vm._v(
+                                    "Imagen seleccionada: " +
+                                      _vm._s(_vm.file ? _vm.file.name : "") +
+                                      "\n                                "
+                                  ),
+                                  _c(
+                                    "button",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: _vm.file,
+                                          expression: "file"
+                                        }
+                                      ],
+                                      staticClass: "close",
+                                      attrs: {
+                                        type: "button",
+                                        "aria-label": "Close"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          ;(_vm.file = null), (_vm.url = null)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        { attrs: { "aria-hidden": "true" } },
+                                        [_vm._v("×")]
+                                      )
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _vm.url
+                                  ? _c("b-img", {
+                                      attrs: {
+                                        rounded: "",
+                                        alt: "Rounded image",
+                                        src: _vm.url
+                                      }
+                                    })
+                                  : _vm._e()
+                              ],
+                              1
+                            )
+                          : _c(
+                              "div",
+                              [
+                                _c("div", { staticClass: "mt-3" }, [
+                                  _vm._v(
+                                    "Imagen seleccionada: " +
+                                      _vm._s(_vm.fileUp) +
+                                      "\n                                "
+                                  ),
+                                  _c(
+                                    "button",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: _vm.file,
+                                          expression: "file"
+                                        }
+                                      ],
+                                      staticClass: "close",
+                                      attrs: {
+                                        type: "button",
+                                        "aria-label": "Close"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.file = null
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        { attrs: { "aria-hidden": "true" } },
+                                        [_vm._v("×")]
+                                      )
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _vm.fileUp
+                                  ? _c("b-img", {
+                                      attrs: {
+                                        rounded: "",
+                                        alt: "Rounded image",
+                                        src: "../../../upload/" + _vm.fileUp
+                                      }
+                                    })
+                                  : _vm._e()
+                              ],
+                              1
+                            )
+                      ])
                     ])
                   ],
                   1
@@ -67800,6 +67990,10 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Giro")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Imagen")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col", width: "17%" } }, [
           _vm._v("Opciones")

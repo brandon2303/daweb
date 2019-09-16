@@ -47,3 +47,4 @@ Route::post('/formSubmit/editar', 'FileController@editar');
 
 Route::post('/agregar/users', 'UserController@agregar');
 Route::get('/listar/nations', 'NationController@listar');
+Route::get('/listar/giros', 'GirosController@listar');

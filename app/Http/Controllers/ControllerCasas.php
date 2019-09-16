@@ -28,9 +28,9 @@ class ControllerCasas extends Controller
                        'plantas' => $request->plantas,
                        'fecha' => $request->fecha,
                        'costo' => $request->costo,
-                       'giro_id' => 1,
+                       'giro_id' => $request->giro_id,
                        'imagen' => $imagen);
-                         
+                           
         Casa::agregarModel($array);
     }
 
@@ -42,10 +42,27 @@ class ControllerCasas extends Controller
 
     protected function editar(Request $request)
     {
-        if (!$request->ajax()) return redirect('/');
-        $ig = $request->imagen;
-        return $ig;
+        if($request->file != "null")
+        {  
+            $imagen = time().'.'.$request->file->getClientOriginalExtension();
+            $request->file->move(public_path('upload'), $imagen);
 
-       // Casa::editarModel($request->id, $request->all()); 
+            $array = array(
+                'id' => $request->id,
+                'nombre' => $request->nombre,
+                'direccion' => $request->direccion,
+                'cuartos' =>  $request->cuartos, 
+                'mts_construc' => $request->mts_construc, 
+                'mts_terreno' => $request->mts_terreno, 
+                'plantas' => $request->plantas,
+                'fecha' => $request->fecha,
+                'costo' => $request->costo,
+                'giro_id' => 1,
+                'imagen' => $imagen);
+
+            Casa::editarModel2($array);  
+        }
+       else
+            Casa::editarModel($request->id, $request->all()); 
     }
 }

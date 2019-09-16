@@ -21,6 +21,8 @@
                                     <th scope="col"  width="5%">Plantas</th>
                                     <th scope="col">Fecha</th>
                                     <th scope="col">Costo</th>
+                                    <th scope="col">Giro</th>
+                                    <th scope="col">Imagen</th>
                                     <th scope="col" width="17%">Opciones</th>
                                 </tr>
                             </thead>
@@ -35,6 +37,8 @@
                                     <td v-text="casa.plantas"></td>
                                     <td v-text="casa.fecha"></td>
                                     <td v-text="casa.costo"></td>
+                                    <td v-text="casa.nombre_giro"></td>
+                                    <td> <b-img rounded alt="Rounded image" width="60" height="40" :src="'../../../upload/'+casa.imagen"> </b-img> </td>
                                     <td><b-button variant="warning" @click="abrirModal(modo='editar',casa)">Editar</b-button> <b-button variant="danger" @click="eliminar(casa.id)">Eliminar</b-button></td>
                                 </tr> 
                             </tbody>
@@ -67,7 +71,7 @@
                     </b-col>
                 </b-row>
 
-                   <b-row class="mb-1">
+                <b-row class="mb-1">
                     <b-col cols="3">
                         Direccion:
                     </b-col>
@@ -76,7 +80,7 @@
                     </b-col>
                 </b-row>
 
-                   <b-row class="mb-1">
+                <b-row class="mb-1">
                     <b-col cols="3">
                         Cuartos:
                     </b-col>
@@ -94,7 +98,7 @@
                     </b-col>
                 </b-row>
 
-                   <b-row class="mb-1">
+                <b-row class="mb-1">
                     <b-col cols="3">
                          Mts. terreno:
                     </b-col>
@@ -102,7 +106,8 @@
                         <input type="number" v-model="mts_terreno" class="form-control">
                     </b-col>
                 </b-row>
-                   <b-row class="mb-1">
+
+                <b-row class="mb-1">
                     <b-col cols="3">
                         No. plantas:
                     </b-col>
@@ -110,7 +115,8 @@
                         <input type="number" v-model="plantas" class="form-control">
                     </b-col>
                 </b-row>
-                   <b-row class="mb-1">
+
+                <b-row class="mb-1">
                     <b-col cols="3">
                         Fecha:
                     </b-col>
@@ -118,7 +124,8 @@
                         <input type="date" v-model="fecha" class="form-control">
                     </b-col>
                 </b-row>
-                   <b-row class="mb-1">
+
+                <b-row class="mb-1">
                     <b-col cols="3">
                         Costo:
                     </b-col>
@@ -126,24 +133,46 @@
                         <input type="number" v-model="costo" class="form-control">
                     </b-col>
                 </b-row>
-                     <b-row class="mb-1 ">
-                                <b-col cols="3">
-                                    Imagen de perfil:
-                                </b-col>
-                                <b-col cols="9" >
-                                    <input type="file" class="form-control" v-on:change="onFileChange">
-                                    
-                                    <div class="mt-3">Imagen seleccionada: {{ file ? file.name : '' }}
-                                        <button type="button" v-show="file" class="close" @click="file=null,url=null,imagen=''" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
+
+                <b-row class="mb-1">
+                    <b-col cols="3">
+                        Giro  de negocio:
+                    </b-col>
+                    <b-col cols="9">
+                           <select class="form-control" v-model="giro_id">
+                            <option value="0" disabled>Seleccione un giro de negocio:</option>
+                            <option v-for="giro in arrayGiros" :key="giro.id" :value="giro.id" v-text="giro.nombre"></option>
+                        </select>
+                    </b-col>
+                </b-row>
                 
-                                    <div id="preview">
-                                        <b-img v-if="url" rounded alt="Rounded image" :src="url"> </b-img>
-                                    </div>
-                                </b-col>
-                             </b-row>   
+                <b-row class="mb-1 ">
+                    <b-col cols="3">
+                        Imagen de perfil:
+                    </b-col>
+                    <b-col cols="9" >
+                        <input type="file" class="form-control" v-on:change="onFileChange">
+                        
+                        <div id="preview">
+                            <div v-if="imagenNueva">
+                                <div class="mt-3">Imagen seleccionada: {{ file ? file.name : '' }}
+                                <button type="button" v-show="file" class="close" @click="file=null,url=null" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <b-img v-if="url" rounded alt="Rounded image" :src="url"> </b-img>
+                            </div>
+                            <div v-else>
+                            <div class="mt-3">Imagen seleccionada: {{ fileUp }}
+                                <button type="button" v-show="file" class="close" @click="file=null" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <b-img rounded alt="Rounded image" v-if="fileUp" :src="'../../../upload/'+fileUp"> </b-img>
+                            </div>
+                        </div>
+                    </b-col>
+                </b-row>   
               </form>
             </b-container>
 
@@ -180,6 +209,7 @@
     export default {
         mounted() {
             this.listar();
+            this.listarGiros();
         },
         data() {
             return {
@@ -199,12 +229,29 @@
                 giro_id : 0,
                 url: null,
                 file : null,
+                imagenNueva : false,
+                fileUp : '',
+                arrayGiros : []
             }
         },
         methods: {
             onFileChange(e){
                 this.file = e.target.files[0];
                 this.url = URL.createObjectURL(this.file);
+                this.imagenNueva = true;
+            },
+             listarGiros(){
+                let t = this;
+
+                axios.get('/listar/giros')
+                .then(function (response) {
+
+                   t.arrayGiros = response.data;
+                
+                })
+                .catch(function (error) {
+                   console.log('error: ->', error);
+                });
             },
             listar(){
                 let t=this;
@@ -233,6 +280,7 @@
                 formData.append('plantas' , this.plantas);
                 formData.append('costo' , this.costo);
                 formData.append('fecha' , this.fecha);
+                formData.append('giro_id' , this.giro_id);
                 formData.append('file', this.file);
 
                 axios.post('/casas/agregar',formData,config)
@@ -246,22 +294,23 @@
                 }); 
             },
             editar(){
-                    const config = {
-                        headers: { 'content-type': 'multipart/form-data' }
-                    }
-                    let t=this;
-                    let formData = new FormData();
-               
-                    formData.append('id' , this.id);
-                    formData.append('nombre' , this.nombre);
-                    formData.append('direccion' , this.direccion);
-                    formData.append('cuartos' , this.cuartos);
-                    formData.append('mts_construc' , this.mts_construc);
-                    formData.append('mts_terreno' , this.mts_terreno);
-                    formData.append('plantas' , this.plantas);
-                    formData.append('costo' , this.costo);
-                    formData.append('fecha' , this.fecha);
-                    formData.append('file', this.file);
+                const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                }
+                let t=this;
+                let formData = new FormData();
+            
+                formData.append('id' , this.id);
+                formData.append('nombre' , this.nombre);
+                formData.append('direccion' , this.direccion);
+                formData.append('cuartos' , this.cuartos);
+                formData.append('mts_construc' , this.mts_construc);
+                formData.append('mts_terreno' , this.mts_terreno);
+                formData.append('plantas' , this.plantas);
+                formData.append('costo' , this.costo);
+                formData.append('fecha' , this.fecha);
+                formData.append('giro_id' , this.giro_id);
+                formData.append('file', this.file);
                     
                 axios.post('/casas/editar', formData, config)
                 .then(function (response) {
@@ -307,7 +356,8 @@
                     this.plantas = casa.plantas;
                     this.fecha = casa.fecha;
                     this.costo = casa.costo;
-                    this.imagen = casa.imagen;
+                    this.giro_id = casa.giro_id;
+                    this.fileUp = casa.imagen;
                 }
             },
             cerrarModal(){
@@ -321,6 +371,10 @@
                 this.fecha = '';
                 this.costo = 0;
                 this.id = 0;
+                this.file = null;
+                this.imagenNueva = false;
+                this.fileUp = '';
+                this.giro_id = 0;
     
             }
         },
