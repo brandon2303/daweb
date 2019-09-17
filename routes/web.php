@@ -20,6 +20,10 @@ Route::get('uploadfiles', function () {
     return view('uploadfiles');
 });
 
+Route::get('usability', function () {
+    return view('usability');
+});
+
 
 
 Route::get('/nuevo', function () {
@@ -37,3 +41,8 @@ Route::post('/formSubmit/editar', 'FileController@editar');
 
 Route::post('/agregar/users', 'UserController@agregar');
 Route::get('/listar/nations', 'NationController@listar');
+
+
+Route::post('usability', 'UsabilityController@store');
+Route::get('email/check', 'UsabilityController@checkEmail');
+Route::get('name/check', 'UsabilityController@checkName');
