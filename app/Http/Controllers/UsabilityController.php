@@ -13,7 +13,7 @@ class UsabilityController extends Controller
        $this->validate($request, [
            'name' => 'required|regex:/^[\pL\s\-]+$/u',
            'email' => 'required|email',
-           'phone' => 'required|numeric',
+           'phone' => 'required|numeric|digits_between:10,10',
            'r_phone_call' => 'required',
            'website' => 'required',
            'priority' => 'required',
@@ -30,7 +30,11 @@ class UsabilityController extends Controller
             'type.required' =>'El campo tipo de servicio es requerido',
             'message.required' =>'El campo mensaje es requerido',
             'name.alpha' => 'El nombre solo puede contener letras.',
-            'phone.numeric' => 'El telefono solo puede contener numeros.'
+            'phone.numeric' => 'El telefono solo puede contener numeros.',
+            'phone.digits_between' => 'El telefono debe tener 10 digitos',
+            'phone.max' => 'El telefono debe como maximo 10 digitos'
+
+
             
        ]);
 
