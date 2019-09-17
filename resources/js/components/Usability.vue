@@ -120,8 +120,8 @@
                     phone:'',
                     r_phone_call:'',
                     website:'',
-                    priority:'',
-                    type:'',
+                    priority :0,
+                    type : 0,
                     message:''
                 },
                 checkEmail:false,
@@ -190,10 +190,9 @@
                 this.usability.phone="";
                 this.usability.r_phone_call="";
                 this.usability.website="";
-                this.usability.priority="";
-                this.usability.type="";
+                this.usability.priority=0;
+                this.usability.type=0;
                 this.usability.message="";
-
             },
             
         }

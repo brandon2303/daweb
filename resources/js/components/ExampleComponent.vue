@@ -21,7 +21,7 @@
                                     <th scope="col"  width="5%">Plantas</th>
                                     <th scope="col">Fecha</th>
                                     <th scope="col" width="5%">Costo</th>
-                                    <th scope="col">Giro</th>
+                                    <th scope="col">Tipo</th>
                                     <th scope="col">Imagen</th>
                                     <th scope="col" width="17%">Opciones</th>
                                 </tr>

@@ -39,7 +39,7 @@
     
     <div id="app">
         <br>
-        <usability-component></usability-component>
+        <usabilidad></usabilidad>
     </div>
     <nav class="navbar navbar-expand "  style="background: #008aa2;">
         <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
