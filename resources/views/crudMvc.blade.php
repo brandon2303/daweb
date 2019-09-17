@@ -42,8 +42,8 @@
     
     <div id="app">
         <br>
-        <form-upload-component>
-        </form-upload-component>
+        <example-component>
+        </example-component>
     </div>
     <nav class="navbar navbar-expand "  style="background: #008aa2;">
         <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">

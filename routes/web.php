@@ -24,7 +24,17 @@ Route::get('usability', function () {
     return view('usability');
 });
 
+//Rutas del crud
 
+Route::get('crudMvc', function () {
+    return view('crudMvc');
+});
+Route::get('/casas', 'ControllerCasas@listar');
+Route::post('/casas/agregar','ControllerCasas@agregar');
+Route::post('/casas/editar','ControllerCasas@editar');
+Route::post('/casas/eliminar','ControllerCasas@eliminar');
+
+//--->
 
 Route::get('/nuevo', function () {
     return view('auth.register');
@@ -46,3 +56,5 @@ Route::get('/listar/nations', 'NationController@listar');
 Route::post('usability', 'UsabilityController@store');
 Route::get('email/check', 'UsabilityController@checkEmail');
 Route::get('name/check', 'UsabilityController@checkName');
+
+Route::get('/listar/giros', 'GirosController@listar');
