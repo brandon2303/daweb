@@ -11,7 +11,7 @@ class UsabilityController extends Controller
     {
 
        $this->validate($request, [
-           'name' => 'required|alpha',
+           'name' => 'required|regex:/^[\pL\s\-]+$/u',
            'email' => 'required|email',
            'phone' => 'required|numeric',
            'r_phone_call' => 'required',
@@ -21,6 +21,7 @@ class UsabilityController extends Controller
            'message' => 'required',
        ], [
             'name.required' =>'El campo nombre es requerido',
+            'name.regex' =>'El campo nombre solo debe contener caracteres',
             'email.required' =>'El campo email es requerido',
             'phone.required' =>'El campo telefono es requerido',
             'r_phone_call.required' =>'El campo regresar la llamada es requerido',
