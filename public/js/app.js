@@ -1959,11 +1959,11 @@ __webpack_require__.r(__webpack_exports__);
       id: 0,
       nombre: '',
       direccion: '',
-      cuartos: 0,
-      mts_construc: 0,
-      mts_terreno: 0,
+      cuartos: '',
+      mts_construc: '',
+      mts_terreno: '',
       plantas: 0,
-      costo: 0,
+      costo: '',
       fecha: '',
       show: false,
       modoAgregar: true,
@@ -2109,12 +2109,12 @@ __webpack_require__.r(__webpack_exports__);
       this.show = false;
       this.nombre = '';
       this.direccion = '';
-      this.cuartos = 0;
-      this.mts_construc = 0;
-      this.mts_terreno = 0;
+      this.cuartos = '';
+      this.mts_construc = '';
+      this.mts_terreno = '';
       this.plantas = 0;
       this.fecha = '';
-      this.costo = 0;
+      this.costo = '';
       this.id = 0;
       this.file = null;
       this.imagenNueva = false;
@@ -67744,7 +67744,7 @@ var render = function() {
                         },
                         [
                           _c("p", { staticStyle: { color: "red" } }, [
-                            _vm._v("Por favor escriba un nombre.")
+                            _vm._v("Por favor escribe un nombre.")
                           ])
                         ]
                       )
@@ -67803,7 +67803,7 @@ var render = function() {
                         },
                         [
                           _c("p", { staticStyle: { color: "red" } }, [
-                            _vm._v("Por favor escriba una direccion.")
+                            _vm._v("Por favor escribe una direccion.")
                           ])
                         ]
                       )
@@ -67834,7 +67834,7 @@ var render = function() {
                         ],
                         staticClass: "form-control",
                         attrs: {
-                          type: "number",
+                          type: "text",
                           placeholder: "Escribe un nuero de cuartos"
                         },
                         domProps: { value: _vm.cuartos },
@@ -67862,7 +67862,7 @@ var render = function() {
                         },
                         [
                           _c("p", { staticStyle: { color: "red" } }, [
-                            _vm._v("Por favor escriba un nombre.")
+                            _vm._v("Por favor escribe un nombre.")
                           ])
                         ]
                       )
@@ -67893,7 +67893,7 @@ var render = function() {
                         ],
                         staticClass: "form-control",
                         attrs: {
-                          type: "number",
+                          type: "text",
                           placeholder: "Escribe un nuero de metros"
                         },
                         domProps: { value: _vm.mts_construc },
@@ -67921,7 +67921,7 @@ var render = function() {
                         },
                         [
                           _c("p", { staticStyle: { color: "red" } }, [
-                            _vm._v("Por favor escriba Metros de contruccion.")
+                            _vm._v("Por favor escribe metros de contruccion.")
                           ])
                         ]
                       )
@@ -67952,7 +67952,7 @@ var render = function() {
                         ],
                         staticClass: "form-control",
                         attrs: {
-                          type: "number",
+                          type: "text",
                           placeholder: "Escribe un nuero de metros"
                         },
                         domProps: { value: _vm.mts_terreno },
@@ -67980,7 +67980,7 @@ var render = function() {
                         },
                         [
                           _c("p", { staticStyle: { color: "red" } }, [
-                            _vm._v("Por favor escriba Metros de terreno.")
+                            _vm._v("Por favor escribe metros de terreno.")
                           ])
                         ]
                       )
@@ -68091,7 +68091,7 @@ var render = function() {
                         },
                         [
                           _c("p", { staticStyle: { color: "red" } }, [
-                            _vm._v("Por seleccione un numero de plantas.")
+                            _vm._v("Por favor seleccione un numero de plantas.")
                           ])
                         ]
                       )
@@ -68177,7 +68177,10 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Escribe un costo"
+                        },
                         domProps: { value: _vm.costo },
                         on: {
                           input: function($event) {
@@ -68203,7 +68206,7 @@ var render = function() {
                         },
                         [
                           _c("p", { staticStyle: { color: "red" } }, [
-                            _vm._v("Por favor escriba un costo.")
+                            _vm._v("Por favor escribe un costo.")
                           ])
                         ]
                       )

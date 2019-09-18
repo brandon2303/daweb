@@ -69,7 +69,7 @@
                     <b-col cols="9">
                         <input type="text" required v-model="nombre" placeholder="Escribe un nombre" class="form-control">
                         <div v-show="errorNombre">
-                            <p style="color:red;">Por favor escriba un nombre.</p>
+                            <p style="color:red;">Por favor escribe un nombre.</p>
                         </div>
                     </b-col>
                 </b-row>
@@ -81,7 +81,7 @@
                     <b-col cols="9">
                         <input type="text" v-model="direccion"  placeholder="Escribe una direccion" class="form-control">
                          <div v-show="errorDireccion">
-                            <p style="color:red;">Por favor escriba una direccion.</p>
+                            <p style="color:red;">Por favor escribe una direccion.</p>
                         </div>
                     </b-col>
                 </b-row>
@@ -91,9 +91,9 @@
                         Cuartos:
                     </b-col>
                     <b-col cols="9">
-                        <input type="number" v-model="cuartos"  placeholder="Escribe un nuero de cuartos" class="form-control">
+                        <input type="text" v-model="cuartos"  placeholder="Escribe un nuero de cuartos" class="form-control">
                          <div v-show="errorCuartos">
-                            <p style="color:red;">Por favor escriba un nombre.</p>
+                            <p style="color:red;">Por favor escribe un nombre.</p>
                         </div>
                     </b-col>
                 </b-row>
@@ -103,9 +103,9 @@
                         Mts. construccion:
                     </b-col>
                     <b-col cols="9">
-                        <input type="number" v-model="mts_construc" placeholder="Escribe un nuero de metros"  class="form-control">
+                        <input type="text" v-model="mts_construc" placeholder="Escribe un nuero de metros"  class="form-control">
                          <div v-show="errorConstruc">
-                            <p style="color:red;">Por favor escriba Metros de contruccion.</p>
+                            <p style="color:red;">Por favor escribe metros de contruccion.</p>
                         </div>
                     </b-col>
                 </b-row>
@@ -115,9 +115,9 @@
                          Mts. terreno:
                     </b-col>
                     <b-col cols="9">
-                        <input type="number" v-model="mts_terreno" placeholder="Escribe un nuero de metros" class="form-control">
+                        <input type="text" v-model="mts_terreno" placeholder="Escribe un nuero de metros" class="form-control">
                          <div v-show="errorTerreno">
-                            <p style="color:red;">Por favor escriba Metros de terreno.</p>
+                            <p style="color:red;">Por favor escribe metros de terreno.</p>
                         </div>
                     </b-col>
                 </b-row>
@@ -141,7 +141,7 @@
                                 <option value="10">10</option>
                             </select>
                         <div v-show="errorPlantas">
-                            <p style="color:red;">Por seleccione un numero de plantas.</p>
+                            <p style="color:red;">Por favor seleccione un numero de plantas.</p>
                         </div>
                     </b-col>
                 </b-row>
@@ -163,9 +163,9 @@
                         Costo:
                     </b-col>
                     <b-col cols="9">
-                        <input type="number" v-model="costo" class="form-control">
+                        <input type="text" v-model="costo" placeholder="Escribe un costo" class="form-control">
                          <div v-show="errorCosto">
-                            <p style="color:red;">Por favor escriba un costo.</p>
+                            <p style="color:red;">Por favor escribe un costo.</p>
                         </div>
                     </b-col>
                 </b-row>
@@ -261,11 +261,11 @@
                 id : 0,
                 nombre : '',
                 direccion : '',
-                cuartos : 0,
-                mts_construc : 0,
-                mts_terreno : 0,
+                cuartos : '',
+                mts_construc : '',
+                mts_terreno : '',
                 plantas : 0,
-                costo : 0,
+                costo : '',
                 fecha : '',
                 show : false,
                 modoAgregar : true,
@@ -429,12 +429,12 @@
                 this.show = false;
                 this.nombre = '';
                 this.direccion = '';
-                this.cuartos = 0;
-                this.mts_construc = 0;
-                this.mts_terreno = 0;
+                this.cuartos = '';
+                this.mts_construc = '';
+                this.mts_terreno = '';
                 this.plantas = 0;
                 this.fecha = '';
-                this.costo = 0;
+                this.costo = '';
                 this.id = 0;
                 this.file = null;
                 this.imagenNueva = false;
