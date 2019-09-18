@@ -3,7 +3,7 @@
                 <form v-on:submit.prevent="saveForm()">
                         <div class="form-group">
                             <label class="control-label">Nombre</label>
-                            <input type="text" v-model="usability.name" @blur="Name()" class="form-control" placeholder="Escribe el nombre completo">
+                            <input type="text" v-model="usability.name" @blur="Name()" class="form-control" placeholder="Escribe tu nombre completo" data-placement="left" data-toggle="tooltip" title="Escribe tu nombre completo">
                         </div>
 
                         <template v-if="vacio==true"></template>
@@ -13,7 +13,7 @@
 
                         <div class="form-group">
                             <label class="control-label">Email</label>
-                            <input type="email" v-model="usability.email" @blur="Email()" class="form-control" placeholder="Escribe tu correo electronico">
+                            <input type="email" v-model="usability.email" @blur="Email()" class="form-control" placeholder="Escribe tu correo electronico" data-placement="left" data-toggle="tooltip" title="Escribe tu correo electronico">
                         </div>
 
                         <template v-if="vacio==true"></template>
@@ -23,7 +23,8 @@
                     
                         <div class="form-group">
                             <label class="control-label">Telefono</label>
-                            <input type="number" v-model="usability.phone" class="form-control" placeholder="Escribe tu telefono">
+                            <input type="number" v-model="usability.phone" class="form-control" placeholder="Escribe tu telefono a 10 digitos" data-placement="left" data-toggle="tooltip" title="Escribe tu numero de telefono a 10 digitos">
+                            <h6>(123)4567891</h6>
                         </div>
                         
                         <template v-if="vacio==true"></template>
@@ -49,7 +50,7 @@
                                         
                         <div class="form-group">
                             <label class="control-label">Website</label>
-                            <input type="text" v-model="usability.website" class="form-control" placeholder="Escribe el website">
+                            <input type="text" v-model="usability.website" class="form-control" placeholder="Escribe el website" data-placement="left" data-toggle="tooltip" title="Escribe el sitio web">
                         </div>
                         <template v-if="vacio==true"></template>
                         <template v-if="vacio==false">
@@ -59,8 +60,8 @@
                     
                         <div class="form-group">
                             <label class="control-label">Prioridad</label>
-                            <select class="form-control" v-model="usability.priority">
-                                <option value="0" disabled>Seleccione una prioridad:</option>
+                            <select class="form-control" v-model="usability.priority" data-placement="left" data-toggle="tooltip" title="Seleccione alguna prioridad">
+                                <option value="" disabled>Seleccione una prioridad:</option>
                                 <option value="Baja">Baja</option>
                                 <option value="Normal">Normal</option>
                                 <option value="Alta">Alta</option>
@@ -75,8 +76,8 @@
                        
                         <div class="form-group">
                             <label class="control-label">Tipo de servicio</label>
-                            <select class="form-control" v-model="usability.type">
-                                <option value="0" disabled>Seleccione una servicio:</option>
+                            <select class="form-control" v-model="usability.type" data-placement="left" data-toggle="tooltip" title="Seleccione el tipo de emergencia">
+                                <option value="" disabled>Seleccione una servicio:</option>
                                 <option value="Actualizacion de Web Site">Actualizacion de Web Site</option>
                                 <option value="Cambio de Informacion">Cambio de Informacion</option>
                                 <option value="Informacion Adicional">Informacion Adicional</option>
@@ -91,7 +92,7 @@
                       
                         <div class="form-group">
                             <label class="control-label">Mensaje</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="usability.message" placeholder="Escribe un mensaje"></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="usability.message" placeholder="Escribe un mensaje" data-placement="left" data-toggle="tooltip" title="Escribe el mensaje"></textarea>
                         </div>
                         <template v-if="vacio==true"></template>
                         <template v-if="vacio==false">
@@ -111,6 +112,8 @@
 
 
 <script>
+
+
     export default {
         data: function () {
             return {
@@ -120,8 +123,8 @@
                     phone:'',
                     r_phone_call:'',
                     website:'',
-                    priority :0,
-                    type : 0,
+                    priority :'',
+                    type : '',
                     message:''
                 },
                 checkEmail:false,
