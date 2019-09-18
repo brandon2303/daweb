@@ -67,7 +67,10 @@
                         Nombre:
                     </b-col>
                     <b-col cols="9">
-                        <input type="text" v-model="nombre" class="form-control">
+                        <input type="text" required v-model="nombre" placeholder="Escribe un nombre" class="form-control">
+                        <div v-show="errorNombre">
+                            <p style="color:red;">Por favor escriba un nombre.</p>
+                        </div>
                     </b-col>
                 </b-row>
 
@@ -76,7 +79,10 @@
                         Direccion:
                     </b-col>
                     <b-col cols="9">
-                        <input type="text" v-model="direccion" class="form-control">
+                        <input type="text" v-model="direccion"  placeholder="Escribe una direccion" class="form-control">
+                         <div v-show="errorDireccion">
+                            <p style="color:red;">Por favor escriba una direccion.</p>
+                        </div>
                     </b-col>
                 </b-row>
 
@@ -85,7 +91,10 @@
                         Cuartos:
                     </b-col>
                     <b-col cols="9">
-                        <input type="number" v-model="cuartos" class="form-control">
+                        <input type="number" v-model="cuartos"  placeholder="Escribe un nuero de cuartos" class="form-control">
+                         <div v-show="errorCuartos">
+                            <p style="color:red;">Por favor escriba un nombre.</p>
+                        </div>
                     </b-col>
                 </b-row>
 
@@ -94,7 +103,10 @@
                         Mts. construccion:
                     </b-col>
                     <b-col cols="9">
-                        <input type="number" v-model="mts_construc" class="form-control">
+                        <input type="number" v-model="mts_construc" placeholder="Escribe un nuero de metros"  class="form-control">
+                         <div v-show="errorConstruc">
+                            <p style="color:red;">Por favor escriba Metros de contruccion.</p>
+                        </div>
                     </b-col>
                 </b-row>
 
@@ -103,7 +115,10 @@
                          Mts. terreno:
                     </b-col>
                     <b-col cols="9">
-                        <input type="number" v-model="mts_terreno" class="form-control">
+                        <input type="number" v-model="mts_terreno" placeholder="Escribe un nuero de metros" class="form-control">
+                         <div v-show="errorTerreno">
+                            <p style="color:red;">Por favor escriba Metros de terreno.</p>
+                        </div>
                     </b-col>
                 </b-row>
 
@@ -112,7 +127,22 @@
                         No. plantas:
                     </b-col>
                     <b-col cols="9">
-                        <input type="number" v-model="plantas" class="form-control">
+                         <select class="form-control" v-model="plantas">
+                                <option value="0" disabled>Seleccione un numero de plantas:</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        <div v-show="errorPlantas">
+                            <p style="color:red;">Por seleccione un numero de plantas.</p>
+                        </div>
                     </b-col>
                 </b-row>
 
@@ -122,6 +152,9 @@
                     </b-col>
                     <b-col cols="9">
                         <input type="date" v-model="fecha" class="form-control">
+                         <div v-show="errorFecha">
+                            <p style="color:red;">Por favor selccione una fecha.</p>
+                        </div>
                     </b-col>
                 </b-row>
 
@@ -131,6 +164,9 @@
                     </b-col>
                     <b-col cols="9">
                         <input type="number" v-model="costo" class="form-control">
+                         <div v-show="errorCosto">
+                            <p style="color:red;">Por favor escriba un costo.</p>
+                        </div>
                     </b-col>
                 </b-row>
 
@@ -143,6 +179,9 @@
                             <option value="0" disabled>Seleccione un giro de negocio:</option>
                             <option v-for="giro in arrayGiros" :key="giro.id" :value="giro.id" v-text="giro.nombre"></option>
                         </select>
+                        <div v-show="errorGiro">
+                            <p style="color:red;">Por favor seleccione un giro.</p>
+                        </div>
                     </b-col>
                 </b-row>
                 
@@ -159,17 +198,22 @@
                                 <button type="button" v-show="file" class="close" @click="file=null,url=null" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
+                                </div>
+                                <b-img v-if="url" rounded alt="Rounded image" :src="url"> </b-img>
                             </div>
-                            <b-img v-if="url" rounded alt="Rounded image" :src="url"> </b-img>
-                            </div>
+                            
                             <div v-else>
-                            <div class="mt-3">Imagen seleccionada: {{ fileUp }}
-                                <button type="button" v-show="file" class="close" @click="file=null" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
+                                <div class="mt-3">Imagen seleccionada: {{ fileUp }}
+                                    <button type="button" v-show="file" class="close" @click="file=null" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <b-img rounded alt="Rounded image" v-if="fileUp" :src="'../../../upload/'+fileUp"> </b-img>
+                               
                             </div>
-                            <b-img rounded alt="Rounded image" v-if="fileUp" :src="'../../../upload/'+fileUp"> </b-img>
-                            </div>
+                        </div>
+                        <div v-show="errorImagen">
+                            <p style="color:red;">Por favor seleccione una imagen.</p>
                         </div>
                     </b-col>
                 </b-row>   
@@ -231,7 +275,21 @@
                 file : null,
                 imagenNueva : false,
                 fileUp : '',
-                arrayGiros : []
+                arrayGiros : [],
+
+                errorNombre : false,
+                errorDireccion : false,
+                errorCuartos : false,
+                errorConstruc : false,
+                errorTerreno : false,
+                errorPlantas : false,
+                errorFecha : false,
+                errorCosto : false,
+                errorGiro : false,
+                errorImagen : false,
+
+                formValido : false
+            
             }
         },
         methods: {
@@ -265,7 +323,14 @@
                 });
             },
             agregar(){
-                
+               
+               this.validarForm();
+
+               if(!this.formValido)
+               {       
+                    return;
+               }
+            
                 const config = {
                     headers: { 'content-type': 'multipart/form-data' }
                 }
@@ -375,7 +440,85 @@
                 this.imagenNueva = false;
                 this.fileUp = '';
                 this.giro_id = 0;
+
+                this.errorNombre = false;
+                this.errorDireccion = false;
+                this.errorCuartos = false;
+                this.errorConstruc = false;
+                this.errorTerreno = false;
+                this.errorPlantas = false;
+                this.errorFecha = false; 
+                this.errorCosto = false;
+                this.errorGiro = false;
+                this.errorImagen = false;
+                this.formValido = false;
+            },
+            validarForm(){
+            
+                if(this.nombre == '' || this.direccion == '' || this.cuartos == ''||  this.mts_construc == 0 || 
+                   this.mts_terreno == 0 || this.plantas == 0 || this.fecha == '' || this.costo == 0 || 
+                   this.giro_id == 0 || this.file == null)
+                {
+                    if (!this.nombre)
+                        this.errorNombre = true; 
+                    else
+                        this.errorNombre = false;
+                
+                    if (!this.direccion)
+                        this.errorDireccion = true; 
+                    else
+                        this.errorDireccion = false;
+                
+                    if (!this.cuartos)
+                        this.errorCuartos = true;
+                    else
+                        this.errorCuartos = false;
+
+                    if (!this.mts_construc)
+                        this.errorConstruc = true;
+                    else
+                        this.errorConstruc = false;
+
+                    if (!this.mts_terreno)
+                        this.errorTerreno = true;
+                    else
+                        this.errorTerreno = false;
+
+                    if (!this.plantas)
+                        this.errorPlantas = true;
+                    else
+                        this.errorPlantas = false;
+
+                    if (!this.fecha)
+                        this.errorFecha = true;
+                    else
+                        this.errorFecha = false;
+
+                    if (!this.costo)
+                        this.errorCosto = true;
+                    else
+                        this.errorCosto = false;
     
+                    if (!this.giro_id)
+                        this.errorGiro = true;
+                    else
+                        this.errorGiro = false;
+
+                    if (this.file == null)
+                    {
+                        this.errorImagen = true;
+                    }
+                    else
+                    {
+                        this.errorImagen = false;
+                    }
+
+                    this.formValido =  false;
+                }
+                else 
+                {
+                    this.formValido = true;
+                }
             }
         },
     }

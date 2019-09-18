@@ -1904,6 +1904,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.listar();
@@ -1929,7 +1973,18 @@ __webpack_require__.r(__webpack_exports__);
       file: null,
       imagenNueva: false,
       fileUp: '',
-      arrayGiros: []
+      arrayGiros: [],
+      errorNombre: false,
+      errorDireccion: false,
+      errorCuartos: false,
+      errorConstruc: false,
+      errorTerreno: false,
+      errorPlantas: false,
+      errorFecha: false,
+      errorCosto: false,
+      errorGiro: false,
+      errorImagen: false,
+      formValido: false
     };
   },
   methods: {
@@ -1956,6 +2011,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     agregar: function agregar() {
+      this.validarForm();
+
+      if (!this.formValido) {
+        return;
+      }
+
       var config = {
         headers: {
           'content-type': 'multipart/form-data'
@@ -2059,6 +2120,40 @@ __webpack_require__.r(__webpack_exports__);
       this.imagenNueva = false;
       this.fileUp = '';
       this.giro_id = 0;
+      this.errorNombre = false;
+      this.errorDireccion = false;
+      this.errorCuartos = false;
+      this.errorConstruc = false;
+      this.errorTerreno = false;
+      this.errorPlantas = false;
+      this.errorFecha = false;
+      this.errorCosto = false;
+      this.errorGiro = false;
+      this.errorImagen = false;
+      this.formValido = false;
+    },
+    validarForm: function validarForm() {
+      if (this.nombre == '' || this.direccion == '' || this.cuartos == '' || this.mts_construc == 0 || this.mts_terreno == 0 || this.plantas == 0 || this.fecha == '' || this.costo == 0 || this.giro_id == 0 || this.file == null) {
+        if (!this.nombre) this.errorNombre = true;else this.errorNombre = false;
+        if (!this.direccion) this.errorDireccion = true;else this.errorDireccion = false;
+        if (!this.cuartos) this.errorCuartos = true;else this.errorCuartos = false;
+        if (!this.mts_construc) this.errorConstruc = true;else this.errorConstruc = false;
+        if (!this.mts_terreno) this.errorTerreno = true;else this.errorTerreno = false;
+        if (!this.plantas) this.errorPlantas = true;else this.errorPlantas = false;
+        if (!this.fecha) this.errorFecha = true;else this.errorFecha = false;
+        if (!this.costo) this.errorCosto = true;else this.errorCosto = false;
+        if (!this.giro_id) this.errorGiro = true;else this.errorGiro = false;
+
+        if (this.file == null) {
+          this.errorImagen = true;
+        } else {
+          this.errorImagen = false;
+        }
+
+        this.formValido = false;
+      } else {
+        this.formValido = true;
+      }
     }
   }
 });
@@ -67619,7 +67714,11 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text" },
+                        attrs: {
+                          type: "text",
+                          required: "",
+                          placeholder: "Escribe un nombre"
+                        },
                         domProps: { value: _vm.nombre },
                         on: {
                           input: function($event) {
@@ -67629,7 +67728,26 @@ var render = function() {
                             _vm.nombre = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errorNombre,
+                              expression: "errorNombre"
+                            }
+                          ]
+                        },
+                        [
+                          _c("p", { staticStyle: { color: "red" } }, [
+                            _vm._v("Por favor escriba un nombre.")
+                          ])
+                        ]
+                      )
                     ])
                   ],
                   1
@@ -67656,7 +67774,10 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Escribe una direccion"
+                        },
                         domProps: { value: _vm.direccion },
                         on: {
                           input: function($event) {
@@ -67666,7 +67787,26 @@ var render = function() {
                             _vm.direccion = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errorDireccion,
+                              expression: "errorDireccion"
+                            }
+                          ]
+                        },
+                        [
+                          _c("p", { staticStyle: { color: "red" } }, [
+                            _vm._v("Por favor escriba una direccion.")
+                          ])
+                        ]
+                      )
                     ])
                   ],
                   1
@@ -67693,7 +67833,10 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number" },
+                        attrs: {
+                          type: "number",
+                          placeholder: "Escribe un nuero de cuartos"
+                        },
                         domProps: { value: _vm.cuartos },
                         on: {
                           input: function($event) {
@@ -67703,7 +67846,26 @@ var render = function() {
                             _vm.cuartos = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errorCuartos,
+                              expression: "errorCuartos"
+                            }
+                          ]
+                        },
+                        [
+                          _c("p", { staticStyle: { color: "red" } }, [
+                            _vm._v("Por favor escriba un nombre.")
+                          ])
+                        ]
+                      )
                     ])
                   ],
                   1
@@ -67730,7 +67892,10 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number" },
+                        attrs: {
+                          type: "number",
+                          placeholder: "Escribe un nuero de metros"
+                        },
                         domProps: { value: _vm.mts_construc },
                         on: {
                           input: function($event) {
@@ -67740,7 +67905,26 @@ var render = function() {
                             _vm.mts_construc = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errorConstruc,
+                              expression: "errorConstruc"
+                            }
+                          ]
+                        },
+                        [
+                          _c("p", { staticStyle: { color: "red" } }, [
+                            _vm._v("Por favor escriba Metros de contruccion.")
+                          ])
+                        ]
+                      )
                     ])
                   ],
                   1
@@ -67767,7 +67951,10 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number" },
+                        attrs: {
+                          type: "number",
+                          placeholder: "Escribe un nuero de metros"
+                        },
                         domProps: { value: _vm.mts_terreno },
                         on: {
                           input: function($event) {
@@ -67777,7 +67964,26 @@ var render = function() {
                             _vm.mts_terreno = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errorTerreno,
+                              expression: "errorTerreno"
+                            }
+                          ]
+                        },
+                        [
+                          _c("p", { staticStyle: { color: "red" } }, [
+                            _vm._v("Por favor escriba Metros de terreno.")
+                          ])
+                        ]
+                      )
                     ])
                   ],
                   1
@@ -67794,27 +68000,101 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("b-col", { attrs: { cols: "9" } }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.plantas,
-                            expression: "plantas"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "number" },
-                        domProps: { value: _vm.plantas },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.plantas,
+                              expression: "plantas"
                             }
-                            _vm.plantas = $event.target.value
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.plantas = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
                           }
-                        }
-                      })
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { value: "0", disabled: "" } },
+                            [_vm._v("Seleccione un numero de plantas:")]
+                          ),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "1" } }, [
+                            _vm._v("1")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2" } }, [
+                            _vm._v("2")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "3" } }, [
+                            _vm._v("3")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "4" } }, [
+                            _vm._v("4")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "5" } }, [
+                            _vm._v("5")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "6" } }, [
+                            _vm._v("6")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "7" } }, [
+                            _vm._v("7")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "8" } }, [
+                            _vm._v("8")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "9" } }, [
+                            _vm._v("9")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "10" } }, [
+                            _vm._v("10")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errorPlantas,
+                              expression: "errorPlantas"
+                            }
+                          ]
+                        },
+                        [
+                          _c("p", { staticStyle: { color: "red" } }, [
+                            _vm._v("Por seleccione un numero de plantas.")
+                          ])
+                        ]
+                      )
                     ])
                   ],
                   1
@@ -67851,7 +68131,26 @@ var render = function() {
                             _vm.fecha = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errorFecha,
+                              expression: "errorFecha"
+                            }
+                          ]
+                        },
+                        [
+                          _c("p", { staticStyle: { color: "red" } }, [
+                            _vm._v("Por favor selccione una fecha.")
+                          ])
+                        ]
+                      )
                     ])
                   ],
                   1
@@ -67888,7 +68187,26 @@ var render = function() {
                             _vm.costo = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errorCosto,
+                              expression: "errorCosto"
+                            }
+                          ]
+                        },
+                        [
+                          _c("p", { staticStyle: { color: "red" } }, [
+                            _vm._v("Por favor escriba un costo.")
+                          ])
+                        ]
+                      )
                     ])
                   ],
                   1
@@ -67951,6 +68269,25 @@ var render = function() {
                           })
                         ],
                         2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errorGiro,
+                              expression: "errorGiro"
+                            }
+                          ]
+                        },
+                        [
+                          _c("p", { staticStyle: { color: "red" } }, [
+                            _vm._v("Por favor seleccione un giro.")
+                          ])
+                        ]
                       )
                     ])
                   ],
@@ -68036,7 +68373,7 @@ var render = function() {
                                   _vm._v(
                                     "Imagen seleccionada: " +
                                       _vm._s(_vm.fileUp) +
-                                      "\n                                "
+                                      "\n                                    "
                                   ),
                                   _c(
                                     "button",
@@ -68082,7 +68419,26 @@ var render = function() {
                               ],
                               1
                             )
-                      ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errorImagen,
+                              expression: "errorImagen"
+                            }
+                          ]
+                        },
+                        [
+                          _c("p", { staticStyle: { color: "red" } }, [
+                            _vm._v("Por favor seleccione una imagen.")
+                          ])
+                        ]
+                      )
                     ])
                   ],
                   1
